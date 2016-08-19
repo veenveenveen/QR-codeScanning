@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  QMCameraViewController.swift
 //  QR-codeScanning
 //
 //  Created by 黄启明 on 16/8/19.
@@ -9,8 +9,8 @@
 import UIKit
 import AVFoundation
 
-class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
-
+class QMCameraViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
+    
     @IBOutlet weak var messageLabel: UILabel!
     
     var captureSession: AVCaptureSession?
@@ -41,7 +41,7 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         captureSession?.addInput(input as AVCaptureInput)
         
         //这个会话的输出端被设定为一个AVCaptureMetaDataOutput对象，而这个AVCaptureMetaDataOutput类是二维码读取的核心组成部分，它和AVCaptureMetadataOutputObjectsDelegate协议一起，将被用来获取从输入设备传过来的元数据（就是摄像头捕获的二维码）然后将它们翻译为人类可读的格式
-       let captureMetadataOutput = AVCaptureMetadataOutput()
+        let captureMetadataOutput = AVCaptureMetadataOutput()
         captureSession?.addOutput(captureMetadataOutput as AVCaptureOutput)
         //设置代理
         captureMetadataOutput.setMetadataObjectsDelegate(self, queue: dispatch_get_main_queue())
@@ -64,6 +64,16 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         
     }
     
+    func playSound(){
+        let path = NSBundle.mainBundle().pathForResource("qrcode_found", ofType: "wav")
+        if let path = path{
+            let soundURL = NSURL(fileURLWithPath: path)
+            var soundID: SystemSoundID = 0
+            AudioServicesCreateSystemSoundID(soundURL, &soundID)
+            AudioServicesPlayAlertSound(soundID)
+        }
+    }
+    
     func captureOutput(captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [AnyObject]!, fromConnection connection: AVCaptureConnection!) {
         if metadataObjects == nil || metadataObjects.count == 0{
             qrCodeFrameView?.frame = CGRectZero
@@ -73,20 +83,16 @@ class ViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
         let metadataObj = metadataObjects[0] as! AVMetadataMachineReadableCodeObject
         
         if metadataObj.type == AVMetadataObjectTypeQRCode {
-//            let codeObj = videoPreviewLayer?.transformedMetadataObjectForMetadataObject(metadataObj) as! AVMetadataMachineReadableCodeObject
-//            qrCodeFrameView?.frame = codeObj.bounds
+            //            let codeObj = videoPreviewLayer?.transformedMetadataObjectForMetadataObject(metadataObj) as! AVMetadataMachineReadableCodeObject
+            //            qrCodeFrameView?.frame = codeObj.bounds
             if metadataObj.stringValue != nil {
                 messageLabel.text = metadataObj.stringValue
+                messageLabel.sizeToFit()
             }
+            playSound()
+            captureSession?.stopRunning()
+            navigationController?.popViewControllerAnimated(true)
         }
-        
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
 
 }
-
