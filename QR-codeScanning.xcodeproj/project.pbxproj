@@ -17,6 +17,8 @@
 		90104A9F1D672E6B00488C67 /* line@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 90104A9C1D672E6B00488C67 /* line@2x.png */; };
 		90104AA01D672E6B00488C67 /* scan_net@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 90104A9D1D672E6B00488C67 /* scan_net@2x.png */; };
 		90104AA21D672E9C00488C67 /* qrcode_found.wav in Resources */ = {isa = PBXBuildFile; fileRef = 90104AA11D672E9C00488C67 /* qrcode_found.wav */; };
+		90DF9A4C1D684E6B00913FAB /* QMScanRectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90DF9A4B1D684E6B00913FAB /* QMScanRectView.swift */; };
+		90DF9A4E1D6857FC00913FAB /* viewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90DF9A4D1D6857FC00913FAB /* viewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +34,8 @@
 		90104A9C1D672E6B00488C67 /* line@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "line@2x.png"; sourceTree = "<group>"; };
 		90104A9D1D672E6B00488C67 /* scan_net@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scan_net@2x.png"; sourceTree = "<group>"; };
 		90104AA11D672E9C00488C67 /* qrcode_found.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = qrcode_found.wav; sourceTree = "<group>"; };
+		90DF9A4B1D684E6B00913FAB /* QMScanRectView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QMScanRectView.swift; sourceTree = "<group>"; };
+		90DF9A4D1D6857FC00913FAB /* viewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = viewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +71,8 @@
 				90104A811D66A69C00488C67 /* AppDelegate.swift */,
 				90104A991D672A5500488C67 /* QMCameraViewController.swift */,
 				90104A971D670DD700488C67 /* QMMainViewController.swift */,
+				90DF9A4B1D684E6B00913FAB /* QMScanRectView.swift */,
+				90DF9A4D1D6857FC00913FAB /* viewController.swift */,
 				90104A851D66A69C00488C67 /* Main.storyboard */,
 				90104A881D66A69C00488C67 /* Assets.xcassets */,
 				90104A9B1D672E6B00488C67 /* back@2x.png */,
@@ -155,9 +161,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				90DF9A4E1D6857FC00913FAB /* viewController.swift in Sources */,
 				90104A981D670DD700488C67 /* QMMainViewController.swift in Sources */,
 				90104A9A1D672A5500488C67 /* QMCameraViewController.swift in Sources */,
 				90104A821D66A69C00488C67 /* AppDelegate.swift in Sources */,
+				90DF9A4C1D684E6B00913FAB /* QMScanRectView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -309,6 +317,7 @@
 				90104A921D66A69C00488C67 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
