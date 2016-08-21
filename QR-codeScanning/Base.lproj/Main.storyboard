@@ -52,13 +52,6 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MF2-Af-lv3">
-                                <rect key="frame" x="72" y="156" width="46" height="30"/>
-                                <state key="normal" title="Button"/>
-                                <connections>
-                                    <segue destination="L8U-ef-fnJ" kind="show" id="yDY-7S-HE6"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -85,24 +78,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qyw-5V-FB5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2543" y="50"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="nME-d4-a2B">
-            <objects>
-                <viewController id="L8U-ef-fnJ" customClass="viewController" customModule="QR_codeScanning" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="kPu-D5-9Mi"/>
-                        <viewControllerLayoutGuide type="bottom" id="Qpi-1W-mtV"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Q82-3b-bkh">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Ii2-aG-Jaj" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2113" y="892"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Mwm-mS-nkE">

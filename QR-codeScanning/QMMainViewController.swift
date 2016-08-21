@@ -30,6 +30,9 @@ class QMMainViewController: UIViewController, MessageEnabled, backEnabled, URLGe
         if message.hasPrefix("http://") || message.hasPrefix("https://") {
             clickEnabledLable.hidden = false
         }
+        else {
+            clickEnabledLable.hidden = true
+        }
         
         messageLable.userInteractionEnabled = true
         
@@ -50,7 +53,7 @@ class QMMainViewController: UIViewController, MessageEnabled, backEnabled, URLGe
                 return
             }
             if (points.x >= messageLable.frame.origin.x && points.y >= messageLable.frame.origin.y && points.x <= messageLable.frame.size.width + messageLable.frame.origin.x && points.y <= messageLable.frame.size.height + messageLable.frame.origin.y) {
-                print("I'm here")
+//                print("I'm here")
                 let webViewController = WebViewController()
                 webViewController.delegate = self
                 navigationController?.pushViewController(webViewController, animated: true)

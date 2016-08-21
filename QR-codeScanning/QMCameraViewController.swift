@@ -105,9 +105,10 @@ class QMCameraViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
         if metadataObjects == nil || metadataObjects.count == 0{
             return
         }
+        
         if let metadataObj = metadataObjects[0] as? AVMetadataMachineReadableCodeObject {
             
-            if metadataObj.type == AVMetadataObjectTypeQRCode {
+//            if metadataObj.type == AVMetadataObjectTypeQRCode {
                 guard metadataObj.stringValue != nil else{
                     return
                 }
@@ -121,7 +122,7 @@ class QMCameraViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
                 navigationController?.popViewControllerAnimated(true)
                 
             }
-        }
+//        }
     }
     
     func setBackButton() {
