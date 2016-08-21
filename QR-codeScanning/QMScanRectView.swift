@@ -19,22 +19,40 @@ var w: CGFloat {
 }
 let h: CGFloat = w
 
+
 class QMScanRectView: UIView {
     var scanRect: CGRect {
         get {
             return CGRectMake((screenW - w) * 0.5, (screenH - h) * 0.5, w, h)
-//            return CGRectMake(0, 0, w, h)
         }
     }
+    var scanRectView: UIView = UIView(frame: CGRectMake((screenW - w) * 0.5, (screenH - h) * 0.5, w, h))
+    
     
     var scanImgView: UIImageView?
-    //设置扫描图片frame
+    
+    //设置扫描图片frame 和图片下文字
     func setupScanImgUI() {
+        
+        let title = UILabel(frame: CGRectMake(0, (screenH - h) * 0.5 + h + 15, screenW, 20))
+        title.text = "将二维码/条码放入框内, 即可自动扫描"
+        title.font = UIFont.systemFontOfSize(14.0)
+        title.textAlignment = .Center
+        title.backgroundColor = UIColor.clearColor()
+        title.textColor = UIColor.whiteColor()
+        self.addSubview(title)
+        
         scanImgView = UIImageView(image: UIImage(named: "scan_net"))
+        self.addSubview(scanRectView)
+        self.bringSubviewToFront(scanRectView)
         if let scanImgView = scanImgView {
-            scanImgView.frame = CGRectMake((screenW - w) * 0.5, (self.frame.size.height - h) * 0.5 - h, w, h)
+            scanImgView.clipsToBounds = true
+            scanImgView.layer.shadowOpacity = 1.0
+            scanImgView.frame = CGRectMake(0, -h - 5, w, h)
             scanImgView.contentMode = .ScaleAspectFill
-            self.addSubview(scanImgView)
+            self.addSubview(scanRectView)
+            scanRectView.addSubview(scanImgView)
+            scanRectView.clipsToBounds = true
         }
     }
     
@@ -42,11 +60,11 @@ class QMScanRectView: UIView {
     func beginAnimation() {
         UIView.animateWithDuration(2.0, animations: {
             if let scanImgView = self.scanImgView {
-                scanImgView.frame = CGRectMake((screenW - w) * 0.5, (self.frame.size.height - h) * 0.5, w, h)
+                scanImgView.frame = CGRectMake(0, 5, w, h)
             }
             }) { (finished) in
                 if let scanImgView = self.scanImgView {
-                    scanImgView.frame = CGRectMake((screenW - w) * 0.5, (self.frame.size.height - h) * 0.5 - h, w, h)
+                    scanImgView.frame = CGRectMake(0, -h - 5, w, h)
                     self.beginAnimation()
                 }
         }
@@ -64,7 +82,10 @@ class QMScanRectView: UIView {
         let frameColor: UIColor = UIColor.whiteColor()
         
         let context = UIGraphicsGetCurrentContext()
-        CGContextSetRGBFillColor(context, 40/255.0, 40/255.0, 40/255.0, 1)
+        CGContextSetRGBFillColor(context, 60/255.0, 60/255.0, 60/255.0, 1)
+        //设置透明度
+        CGContextSetAlpha(context, 0.5)
+    
         CGContextFillRect(context, rect)
         //frame path
         let framePath: UIBezierPath = UIBezierPath(rect: CGRectMake(originX, originY, w, h))
@@ -115,13 +136,14 @@ class QMScanRectView: UIView {
         CGContextSetLineWidth(context, 1.6)
         CGContextStrokePath(context)
         
-        //add text
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.alignment = .Center
-        let attrs = [NSFontAttributeName: UIFont.systemFontOfSize(14.0),NSParagraphStyleAttributeName: paragraphStyle,NSForegroundColorAttributeName: UIColor.whiteColor()]
-        let title = "将二维码/条码放入框内, 即可自动扫描"
-        let titleSize = (title as NSString).sizeWithAttributes(attrs)
-        let titleRect = CGRectMake(0, originY + h + 15, rect.size.width, titleSize.height)
-        (title as NSString).drawInRect(titleRect, withAttributes: attrs)
+//        //add text
+//        let paragraphStyle = NSMutableParagraphStyle()
+//        paragraphStyle.alignment = .Center
+//        let attrs = [NSFontAttributeName: UIFont.systemFontOfSize(14.0),NSParagraphStyleAttributeName: paragraphStyle,NSForegroundColorAttributeName: UIColor.whiteColor()]
+//        let title = "将二维码/条码放入框内, 即可自动扫描"
+//        
+//        let titleSize = (title as NSString).sizeWithAttributes(attrs)
+//        let titleRect = CGRectMake(0, originY + h + 15, rect.size.width, titleSize.height)
+//        (title as NSString).drawInRect(titleRect, withAttributes: attrs)
     }
 }

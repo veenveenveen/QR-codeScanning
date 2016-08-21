@@ -12,17 +12,18 @@ import AVFoundation
 protocol MessageEnabled {
     func returnMessage(textString: String)
 }
+protocol backEnabled {
+    func backToFront()
+}
 
 class QMCameraViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate{
-    
-    var messageLabel: UILabel!
     
     var captureSession: AVCaptureSession?
     var videoPreviewLayer: AVCaptureVideoPreviewLayer?
     var scanView: QMScanRectView?
-    
-    
+
     var delegate: MessageEnabled?
+    var backDelegate: backEnabled?
     
     //二维码的读取完全是基于视频捕获的，为了实时捕获视频，我们只需要以合适的AVCaptureDevice对象作为输入参数去实例化一个AVCaptureSession对象
     
@@ -33,12 +34,11 @@ class QMCameraViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
         scanView = QMScanRectView()
         scanView?.frame = view.bounds
         scanView?.backgroundColor = UIColor.clearColor()
-        view.addSubview(scanView!)
         
         scanView?.setupScanImgUI()
+        view.addSubview(scanView!)
         scanView?.beginAnimation()
         
-//        navigationController?.navigationBar.hidden = true
         //获取摄像设备 并设置参数AVMediaTypeVideo
         let captureDevice = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
         
@@ -58,6 +58,8 @@ class QMCameraViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
         
         //这个会话的输出端被设定为一个AVCaptureMetaDataOutput对象，而这个AVCaptureMetaDataOutput类是二维码读取的核心组成部分，它和AVCaptureMetadataOutputObjectsDelegate协议一起，将被用来获取从输入设备传过来的元数据（就是摄像头捕获的二维码）然后将它们翻译为人类可读的格式
         let captureMetadataOutput = AVCaptureMetadataOutput()
+        //限制扫描区域
+        captureMetadataOutput.rectOfInterest = CGRectMake((scanView?.scanRect.origin.y)!/screenH, (scanView?.scanRect.origin.x)!/screenW, (scanView?.scanRect.size.height)!/screenH, (scanView?.scanRect.size.width)!/screenW)
         captureSession?.addOutput(captureMetadataOutput as AVCaptureOutput)
         //设置代理
         captureMetadataOutput.setMetadataObjectsDelegate(self, queue: dispatch_get_main_queue())
@@ -78,14 +80,14 @@ class QMCameraViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
         if let videoPreviewLayer = AVCaptureVideoPreviewLayer(session: captureSession){
             videoPreviewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
             videoPreviewLayer.frame = view.layer.bounds
-//            videoPreviewLayer.frame = scanView!.scanRect
             view.layer.addSublayer(videoPreviewLayer)
         }
-        //调用视频捕获回话的startRunning方法来启动
+        //调用视频捕获 startRunning 方法来启动
         captureSession?.startRunning()
-        messageLabel = UILabel(frame: CGRect(x: 20, y: 40, width: view.bounds.width-40, height: 20))
-        view.bringSubviewToFront(messageLabel)
+        
         view.bringSubviewToFront(scanView!)
+        //设置返回按钮
+        setBackButton()
         
     }
     
@@ -99,69 +101,50 @@ class QMCameraViewController: UIViewController, AVCaptureMetadataOutputObjectsDe
         }
     }
     
-    func getMessage() -> String? {
-        if let message = messageLabel.text{
-            return message
-        }
-        return nil
-    }
-    
     func captureOutput(captureOutput: AVCaptureOutput!, didOutputMetadataObjects metadataObjects: [AnyObject]!, fromConnection connection: AVCaptureConnection!) {
         if metadataObjects == nil || metadataObjects.count == 0{
-            messageLabel.text = "未发现二维码"
             return
         }
-        let metadataObj = metadataObjects[0] as! AVMetadataMachineReadableCodeObject
-//        let path = bezierPathForCorners(metadataObj.corners)
-        if (scanView?.scanRect.contains(metadataObj.bounds) == false) {
-            return
-        }
-        
-        if metadataObj.type == AVMetadataObjectTypeQRCode {
-            guard metadataObj.stringValue != nil else{
-                return
-            }
-            messageLabel.text = metadataObj.stringValue
-            playSound()
+        if let metadataObj = metadataObjects[0] as? AVMetadataMachineReadableCodeObject {
             
-            if let delegate = delegate{
-                delegate.returnMessage(metadataObj.stringValue)
-            }
-
-            captureSession?.stopRunning()
-            navigationController?.popViewControllerAnimated(true)
-            
-        }
-    }
-    func bezierPathForCorners(corners: [AnyObject]) -> UIBezierPath {
-        
-        let path = UIBezierPath()
-        
-        for i in 0  ..< corners.count  {
-            
-            let point = pointForCorner(corners[i] as! NSDictionary)
-            if i == 0 {
+            if metadataObj.type == AVMetadataObjectTypeQRCode {
+                guard metadataObj.stringValue != nil else{
+                    return
+                }
+                playSound()
                 
-                path.moveToPoint(point)
-            }
-            else {
+                if let delegate = delegate{
+                    delegate.returnMessage(metadataObj.stringValue)
+                }
                 
-                path.addLineToPoint(point)
+                captureSession?.stopRunning()
+                navigationController?.popViewControllerAnimated(true)
+                
             }
         }
-        
-        path.closePath()
-        return path
     }
     
-    func pointForCorner(corner: NSDictionary) -> CGPoint {
+    func setBackButton() {
         
-        var point = CGPointZero
+        navigationController?.navigationBar.hidden = true
         
-        do {
-            point =  CGPointMake(corner["X"] as! CGFloat, corner["Y"] as! CGFloat)
-        }
+        let backBtn = UIButton()
+        backBtn.translatesAutoresizingMaskIntoConstraints = false
+        backBtn.addTarget(self, action: #selector(backAction), forControlEvents: .TouchUpInside)
+        backBtn.setImage(UIImage(named: "back"), forState: .Normal)
+        view.addSubview(backBtn)
+        view.bringSubviewToFront(backBtn)
         
-        return point
+        let constraint1 = NSLayoutConstraint(item: backBtn, attribute: .Top, relatedBy: .Equal, toItem: view, attribute: .Top, multiplier: 1.0, constant: 20)
+        let constraint2 = NSLayoutConstraint(item: backBtn, attribute: .Left, relatedBy: .Equal, toItem: view, attribute: .Left, multiplier: 1.0, constant: 15)
+        let constraint3 = NSLayoutConstraint(item: backBtn, attribute: .Width, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 50)
+        let constraint4 = NSLayoutConstraint(item: backBtn, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1.0, constant: 50)
+        view.addConstraints([constraint1,constraint2,constraint3,constraint4])
+        
+    }
+    
+    func backAction() {
+        navigationController?.popViewControllerAnimated(true)
+        backDelegate?.backToFront()
     }
 }

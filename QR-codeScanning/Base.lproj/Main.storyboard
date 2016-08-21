@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="s7g-Vs-eDX">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="ECG-sP-8F1">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -45,8 +45,15 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="点击上面的链接可访问网页 " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="M7n-uD-JsN">
+                                <rect key="frame" x="259" y="327" width="172" height="17"/>
+                                <color key="backgroundColor" red="0.65490196078431373" green="0.94509803921568625" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MF2-Af-lv3">
-                                <rect key="frame" x="277" y="418" width="46" height="30"/>
+                                <rect key="frame" x="72" y="156" width="46" height="30"/>
                                 <state key="normal" title="Button"/>
                                 <connections>
                                     <segue destination="L8U-ef-fnJ" kind="show" id="yDY-7S-HE6"/>
@@ -62,21 +69,22 @@
                             <constraint firstAttribute="trailing" secondItem="5M8-dy-zzf" secondAttribute="trailing" constant="50" id="FoJ-KL-dbB"/>
                             <constraint firstItem="628-13-zdi" firstAttribute="top" secondItem="2Ue-3p-Rlr" secondAttribute="top" constant="150" id="T7h-pY-nQz"/>
                             <constraint firstItem="628-13-zdi" firstAttribute="centerX" secondItem="2Ue-3p-Rlr" secondAttribute="centerX" id="aEb-LU-dkI"/>
+                            <constraint firstItem="M7n-uD-JsN" firstAttribute="top" secondItem="5M8-dy-zzf" secondAttribute="bottom" constant="20" id="dYe-gI-nxk"/>
+                            <constraint firstItem="M7n-uD-JsN" firstAttribute="centerX" secondItem="5M8-dy-zzf" secondAttribute="centerX" id="f8D-rz-N9C"/>
                             <constraint firstItem="TZx-3B-FWI" firstAttribute="leading" secondItem="2Ue-3p-Rlr" secondAttribute="leading" constant="50" id="rf1-8B-GU8"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="LjH-87-i2g">
-                        <barButtonItem key="backBarButtonItem" title="返回" id="sO1-mH-7mI">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        </barButtonItem>
+                        <barButtonItem key="backBarButtonItem" title=" " id="OSN-fB-p2d"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="clickEnabledLable" destination="M7n-uD-JsN" id="0vI-BC-q1D"/>
                         <outlet property="messageLable" destination="5M8-dy-zzf" id="f4c-wj-vqB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qyw-5V-FB5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1731" y="50"/>
+            <point key="canvasLocation" x="2543" y="50"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="nME-d4-a2B">
@@ -94,25 +102,25 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ii2-aG-Jaj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1736" y="718"/>
+            <point key="canvasLocation" x="2113" y="892"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="of7-yb-tMn">
+        <scene sceneID="Mwm-mS-nkE">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="s7g-Vs-eDX" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="ECG-sP-8F1" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="zy7-dx-bCw">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="hq8-VQ-Ktu">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="p3C-in-Z9b" kind="relationship" relationship="rootViewController" id="eEX-Db-217"/>
+                        <segue destination="p3C-in-Z9b" kind="relationship" relationship="rootViewController" id="wUK-AG-6w1"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="HCX-sq-o1U" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MDE-ay-UKy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="746" y="94"/>
+            <point key="canvasLocation" x="1731" y="50"/>
         </scene>
     </scenes>
 </document>

@@ -19,6 +19,7 @@
 		90104AA21D672E9C00488C67 /* qrcode_found.wav in Resources */ = {isa = PBXBuildFile; fileRef = 90104AA11D672E9C00488C67 /* qrcode_found.wav */; };
 		90DF9A4C1D684E6B00913FAB /* QMScanRectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90DF9A4B1D684E6B00913FAB /* QMScanRectView.swift */; };
 		90DF9A4E1D6857FC00913FAB /* viewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90DF9A4D1D6857FC00913FAB /* viewController.swift */; };
+		90DF9A501D69827B00913FAB /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90DF9A4F1D69827B00913FAB /* WebViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		90104AA11D672E9C00488C67 /* qrcode_found.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = qrcode_found.wav; sourceTree = "<group>"; };
 		90DF9A4B1D684E6B00913FAB /* QMScanRectView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QMScanRectView.swift; sourceTree = "<group>"; };
 		90DF9A4D1D6857FC00913FAB /* viewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = viewController.swift; sourceTree = "<group>"; };
+		90DF9A4F1D69827B00913FAB /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,9 +71,10 @@
 			isa = PBXGroup;
 			children = (
 				90104A811D66A69C00488C67 /* AppDelegate.swift */,
-				90104A991D672A5500488C67 /* QMCameraViewController.swift */,
 				90104A971D670DD700488C67 /* QMMainViewController.swift */,
+				90104A991D672A5500488C67 /* QMCameraViewController.swift */,
 				90DF9A4B1D684E6B00913FAB /* QMScanRectView.swift */,
+				90DF9A4F1D69827B00913FAB /* WebViewController.swift */,
 				90DF9A4D1D6857FC00913FAB /* viewController.swift */,
 				90104A851D66A69C00488C67 /* Main.storyboard */,
 				90104A881D66A69C00488C67 /* Assets.xcassets */,
@@ -162,6 +165,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				90DF9A4E1D6857FC00913FAB /* viewController.swift in Sources */,
+				90DF9A501D69827B00913FAB /* WebViewController.swift in Sources */,
 				90104A981D670DD700488C67 /* QMMainViewController.swift in Sources */,
 				90104A9A1D672A5500488C67 /* QMCameraViewController.swift in Sources */,
 				90104A821D66A69C00488C67 /* AppDelegate.swift in Sources */,
